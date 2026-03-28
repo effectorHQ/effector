@@ -7,14 +7,7 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-
-const NO_COLOR = process.env.NO_COLOR !== undefined;
-const c = {
-  red:    s => NO_COLOR ? s : `\x1b[31m${s}\x1b[0m`,
-  green:  s => NO_COLOR ? s : `\x1b[32m${s}\x1b[0m`,
-  cyan:   s => NO_COLOR ? s : `\x1b[36m${s}\x1b[0m`,
-  dim:    s => NO_COLOR ? s : `\x1b[2m${s}\x1b[0m`,
-};
+import { c } from '../fmt.js';
 
 export async function runCompile(dir, opts = {}) {
   const absDir = resolve(dir);

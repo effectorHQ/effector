@@ -119,7 +119,7 @@ function reportJson(filePath, results) {
  */
 export function printHelp() {
   console.log(`
-${COLORS.bright}skill-lint${COLORS.reset} - Validate OpenClaw SKILL.md files
+${COLORS.bright}effector lint${COLORS.reset} - Validate Effector SKILL.md files
 
 ${COLORS.bright}Usage:${COLORS.reset}
   skill-lint [OPTIONS] [file]

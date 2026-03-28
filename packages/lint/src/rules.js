@@ -142,7 +142,7 @@ function validateEmoji(emoji) {
     results.push({
       severity: SEVERITY.WARNING,
       rule: 'missing-emoji',
-      message: 'Missing emoji in metadata.openclaw.emoji. Add one for better visual identification.'
+      message: 'Missing emoji field. Add one for better visual identification in registries.'
     });
   } else if (emoji.length > 2) {
     results.push({
@@ -166,7 +166,7 @@ function validateMetadataStructure(metadata) {
     results.push({
       severity: SEVERITY.INFO,
       rule: 'metadata-structure',
-      message: 'Consider adding metadata.openclaw section for better ClawHub discovery.'
+      message: 'Consider adding metadata section for better discovery in registries.'
     });
   }
 

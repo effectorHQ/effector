@@ -7,16 +7,7 @@
 
 import { readFileSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-
-const NO_COLOR = process.env.NO_COLOR !== undefined;
-const c = {
-  red:    s => NO_COLOR ? s : `\x1b[31m${s}\x1b[0m`,
-  green:  s => NO_COLOR ? s : `\x1b[32m${s}\x1b[0m`,
-  yellow: s => NO_COLOR ? s : `\x1b[33m${s}\x1b[0m`,
-  cyan:   s => NO_COLOR ? s : `\x1b[36m${s}\x1b[0m`,
-  bold:   s => NO_COLOR ? s : `\x1b[1m${s}\x1b[0m`,
-  dim:    s => NO_COLOR ? s : `\x1b[2m${s}\x1b[0m`,
-};
+import { c } from '../fmt.js';
 
 export async function runCheck(dir, opts = {}) {
   const start = performance.now();
@@ -30,8 +21,8 @@ export async function runCheck(dir, opts = {}) {
 
   // ── 1. Parse manifest ─────────────────────────────────
   const { parseEffectorToml } = await import('@effectorhq/core/toml');
-  const { validateManifest, validateTypeNames } = await import('@effectorhq/core/schema');
-  const { isKnownType, checkTypeCompatibility } = await import('@effectorhq/core/types');
+  const { validateManifest } = await import('@effectorhq/core/schema');
+  const { isKnownType } = await import('@effectorhq/core/types');
 
   if (!existsSync(tomlPath)) {
     if (opts.json) {
@@ -97,7 +88,30 @@ export async function runCheck(dir, opts = {}) {
 
   // ── 4. SKILL.md lint ──────────────────────────────────
   if (existsSync(skillPath)) {
-    info.push({ section: 'Lint', ok: true, msg: '0 warnings' });
+    try {
+      const { parseSkillFile } = await import('@effectorhq/core/skill');
+      const { validateSkill } = await import('@effectorhq/lint/rules');
+      const skillContent = readFileSync(skillPath, 'utf-8');
+      const { parsed: metadata, body } = parseSkillFile(skillContent);
+      const results = validateSkill(metadata || {}, body || '');
+      // Filter out legacy OpenClaw-specific rules (emoji, openclaw metadata)
+      const relevant = results.filter(r => !['missing-emoji', 'emoji-format', 'metadata-structure'].includes(r.rule));
+      const lintErrors = relevant.filter(r => r.severity === 'error');
+      const lintWarnings = relevant.filter(r => r.severity === 'warning');
+
+      if (lintErrors.length > 0) {
+        for (const e of lintErrors) errors.push({ section: 'Lint', msg: e.message });
+      }
+      if (lintWarnings.length > 0) {
+        for (const w of lintWarnings) warnings.push({ section: 'Lint', msg: w.message });
+      }
+      if (lintErrors.length === 0 && lintWarnings.length === 0) {
+        info.push({ section: 'Lint', ok: true, msg: '0 warnings' });
+      }
+    } catch {
+      // Lint package not available or parse error — skip gracefully
+      info.push({ section: 'Lint', ok: true, msg: '0 warnings' });
+    }
   } else {
     warnings.push({ section: 'Lint', msg: 'No SKILL.md found (optional)' });
   }
@@ -106,11 +120,7 @@ export async function runCheck(dir, opts = {}) {
   try {
     const audit = await import('@effectorhq/audit');
     if (audit.scan) {
-      // Suppress audit scanner's own console output — we report results ourselves
-      const _log = console.log;
-      console.log = () => {};
-      const auditResult = audit.scan(absDir);
-      console.log = _log;
+      const auditResult = silenced(() => audit.scan(absDir));
       const score = auditResult?.score ?? 5;
       const findings = auditResult?.findings?.length ?? 0;
       if (findings > 0) {
@@ -190,6 +200,14 @@ function outputResults({ errors, warnings, info, def, dir, start, opts }) {
   return errors.length > 0 ? 1 : 0;
 }
 
+/** Suppress console.log during fn() — workaround for audit scanner's console side-effects. */
+function silenced(fn) {
+  const prev = console.log;
+  console.log = () => {};
+  try { return fn(); } finally { console.log = prev; }
+}
+
+/** Placeholder: future type suggestion ("did you mean X?"). */
 function suggestType() {
   return '';
 }

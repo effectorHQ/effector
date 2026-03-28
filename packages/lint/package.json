@@ -3,6 +3,12 @@
   "version": "0.2.1",
   "description": "Lint and validate SKILL.md files for the Effector ecosystem",
   "type": "module",
+  "exports": {
+    ".": "./src/rules.js",
+    "./rules": "./src/rules.js",
+    "./parser": "./src/parser.js",
+    "./reporter": "./src/reporter.js"
+  },
   "bin": {
     "skill-lint": "bin/skill-lint.js"
   },

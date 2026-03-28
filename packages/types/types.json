@@ -1,7 +1,7 @@
 {
   "version": "0.2.0",
   "generated": "2026-03-14",
-  "description": "Machine-readable catalog of all standard Effector types. Consumed by skill-lint, skill-eval, effector-compose, effector-graph, and any tool that needs to validate or check compatibility of type names declared in effector.toml manifests.",
+  "description": "Machine-readable catalog of all standard Effector types. Used by the type checker, compiler, and guard system to validate type names declared in effector.toml manifests.",
 
   "types": {
     "input": {

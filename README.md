@@ -4,7 +4,7 @@
 [![CI](https://github.com/effectorHQ/effector/actions/workflows/ci.yml/badge.svg)](https://github.com/effectorHQ/effector/actions/workflows/ci.yml)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
 [![Zero Dependencies](https://img.shields.io/badge/core_dependencies-0-brightgreen.svg)](#zero-dependencies)
-[![Tests](https://img.shields.io/badge/tests-257%20passing-brightgreen.svg)](#)
+[![Tests](https://img.shields.io/badge/tests-250%2B%20passing-brightgreen.svg)](#)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
 **A typed capability interface layer for agent skills.**
@@ -84,7 +84,7 @@ env-read = ["GITHUB_TOKEN"]
 ```
 
 Now your tool has:
-- **Type-safe interfaces** — input/output/context from 40 standard types with structural subtyping
+- **Type-safe interfaces** — input/output/context from 42 standard types with structural subtyping
 - **Declared permissions** — network, subprocess, filesystem, env access — auditable and enforceable
 - **Cross-runtime portability** — compile once to MCP, OpenAI Agents, LangChain, or JSON IR
 - **Static audit** — security scanning for prompt injection, data exfiltration, permission creep
@@ -169,13 +169,13 @@ effector init my-tool --template minimal       # bare minimum
 
 ## Type System
 
-40 standard types across three roles, grounded in analysis of 13,000+ real-world agent tools:
+42 standard types across three roles, grounded in analysis of 13,000+ real-world agent tools:
 
 | Role | Count | Examples |
 |------|-------|----------|
-| **Input** | 15 | `String`, `CodeDiff`, `URL`, `JSON`, `ImageRef`, `SearchQuery` |
+| **Input** | 15 | `String`, `CodeDiff`, `URL`, `JSON`, `ImageRef`, `RepositoryRef` |
 | **Output** | 14 | `Markdown`, `ReviewReport`, `TestResult`, `DeploymentStatus` |
-| **Context** | 11 | `GitHubCredentials`, `Repository`, `Docker`, `AWSCredentials` |
+| **Context** | 13 | `GitHubCredentials`, `Repository`, `Docker`, `AWSCredentials` |
 
 ### Compatibility Rules
 
@@ -318,7 +318,7 @@ effector/
 
 | Package | Purpose |
 |---------|---------|
-| `packages/types/` | Type catalog (40 standard types as JSON) |
+| `packages/types/` | Type catalog (42 standard types as JSON) |
 | `packages/audit/` | Security scanner for SKILL.md files |
 | `packages/compose/` | Type-checked composition engine |
 | `packages/lint/` | SKILL.md linter |
@@ -394,7 +394,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
-This project is licensed under the [Apache License, Version 2.0](LICENSE) 。
+This project is licensed under the [Apache License, Version 2.0](LICENSE).
 
 ---
 

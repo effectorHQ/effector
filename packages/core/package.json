@@ -39,9 +39,6 @@
       "default": "./src/guard.js"
     }
   },
-  "bin": {
-    "effector-core": "./src/cli.js"
-  },
   "scripts": {
     "test": "node --test tests/*.test.js",
     "lint": "node --check src/*.js",

@@ -17,15 +17,15 @@ export const PERMISSION_DENIED = 'EFFECTOR_PERMISSION_DENIED';
 export const DISCOVERY_NO_MATCH = 'EFFECTOR_DISCOVERY_NO_MATCH';
 
 const SUGGESTIONS = {
-  [TOML_PARSE_ERROR]: 'Check your effector.toml syntax. See https://github.com/effectorHQ/effector-core#effectortoml',
+  [TOML_PARSE_ERROR]: 'Check your effector.toml syntax. See https://github.com/effectorHQ/effector',
   [SKILL_PARSE_ERROR]: 'Ensure SKILL.md starts and ends with --- delimiters around YAML frontmatter.',
-  [TYPE_UNKNOWN]: 'Run `effector-core types` to see all 40 standard types.',
+  [TYPE_UNKNOWN]: 'Run `effector inspect .` to see type details, or check the 42 standard types in the catalog.',
   [TYPE_INCOMPATIBLE]: 'Check that the output type of the upstream tool matches the input type of the downstream tool.',
-  [VALIDATION_ERROR]: 'Run `effector-core validate .` to see all validation errors.',
-  [COMPILE_TARGET_UNKNOWN]: 'Use listTargets() or `effector-core compile --help` to see available targets.',
-  [FILE_NOT_FOUND]: 'Ensure the directory contains effector.toml and/or SKILL.md.',
+  [VALIDATION_ERROR]: 'Run `effector check .` to see all validation errors.',
+  [COMPILE_TARGET_UNKNOWN]: 'Available targets: mcp, openai-agents, langchain, json. Run `effector compile --help`.',
+  [FILE_NOT_FOUND]: 'Ensure the directory contains effector.toml and/or SKILL.md. Run `effector init` to create them.',
   [PERMISSION_DENIED]: 'The tool requires permissions not allowed by server config. Check --allow-network / --allow-subprocess flags.',
-  [DISCOVERY_NO_MATCH]: 'No skills match the type query. Try broader type names or check available types with effector_inspect.',
+  [DISCOVERY_NO_MATCH]: 'No skills match the type query. Try broader type names or check available types with effector inspect.',
 };
 
 /**

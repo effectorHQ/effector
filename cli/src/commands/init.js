@@ -10,14 +10,7 @@
 
 import { writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, resolve, basename } from 'node:path';
-
-const NO_COLOR = process.env.NO_COLOR !== undefined;
-const c = {
-  green:  s => NO_COLOR ? s : `\x1b[32m${s}\x1b[0m`,
-  cyan:   s => NO_COLOR ? s : `\x1b[36m${s}\x1b[0m`,
-  dim:    s => NO_COLOR ? s : `\x1b[2m${s}\x1b[0m`,
-  red:    s => NO_COLOR ? s : `\x1b[31m${s}\x1b[0m`,
-};
+import { c } from '../fmt.js';
 
 const TEMPLATES = {
   skill: {
@@ -46,7 +39,17 @@ tags: [code-review, analysis]
 
 # ${name}
 
-You are a code review assistant. When given a code diff, analyze it and produce a structured review report.
+## Purpose
+
+Analyze code diffs and produce structured, actionable review reports with severity ratings and line-level suggestions.
+
+## When to Use
+
+Use this skill when you need automated code review on pull request diffs, commit changes, or any code modification that requires quality assessment.
+
+## Setup
+
+Requires \`GITHUB_TOKEN\` environment variable for repository access. Filesystem read permission is needed to access local diffs.
 
 ## Instructions
 
@@ -54,6 +57,16 @@ You are a code review assistant. When given a code diff, analyze it and produce 
 2. Identify potential issues: bugs, security vulnerabilities, style problems
 3. Provide actionable suggestions with line references
 4. Rate overall quality on a 1-5 scale
+
+## Examples
+
+Given a diff that removes error handling:
+\`\`\`
+- try { await fetch(url); } catch (e) { log(e); }
++ await fetch(url);
+\`\`\`
+
+Returns: \`{ findings: [{ line: 2, severity: "error", message: "Removed error handling" }], score: 2 }\`
 
 ## Output Format
 
@@ -90,7 +103,17 @@ tags: [deploy, ci-cd, workflow]
 
 # ${name}
 
-You are a deployment orchestrator. Given a repository reference, run the full deploy pipeline.
+## Purpose
+
+Orchestrate end-to-end deployments: test, build, and deploy a repository to staging and production environments.
+
+## When to Use
+
+Use this workflow when a repository needs a full deployment pipeline — from running tests through production release.
+
+## Setup
+
+Requires \`AWS_ACCESS_KEY_ID\`, \`AWS_SECRET_ACCESS_KEY\`, and \`GITHUB_TOKEN\` environment variables. Network and subprocess access are required.
 
 ## Steps
 
@@ -98,6 +121,14 @@ You are a deployment orchestrator. Given a repository reference, run the full de
 2. Run tests: \`npm test\`
 3. Build: \`npm run build\`
 4. Deploy to staging, then production
+
+## Examples
+
+Deploy the main branch:
+\`\`\`
+input: { ref: "main", repo: "effectorHQ/effector" }
+output: { success: true, url: "https://app.example.com", duration: 45 }
+\`\`\`
 
 ## Output Format
 
@@ -134,7 +165,17 @@ tags: [sync, integration]
 
 # ${name}
 
-You are a data sync assistant. Given JSON input, sync it with the configured external service.
+## Purpose
+
+Sync structured JSON data with an external service, handling transformation and error reporting.
+
+## When to Use
+
+Use this extension when you need to push data to an external API, transform between formats, or maintain synchronization between systems.
+
+## Setup
+
+Requires \`API_TOKEN\` environment variable for the target service. Network access is required.
 
 ## Instructions
 
@@ -142,6 +183,14 @@ You are a data sync assistant. Given JSON input, sync it with the configured ext
 2. Transform data to the target format
 3. Send to the external API
 4. Report success or failure
+
+## Examples
+
+Sync a user record:
+\`\`\`
+input: { data: { name: "Alice", role: "admin" } }
+output: { success: true, message: "Synced 1 record" }
+\`\`\`
 
 ## Output Format
 
@@ -169,7 +218,24 @@ description: A simple text processor
 
 # ${name}
 
-Process the input text and return the result.
+## Purpose
+
+Process input text and return the transformed result.
+
+## When to Use
+
+Use this skill for any text transformation task — formatting, extraction, or conversion.
+
+## Setup
+
+No external dependencies or credentials required.
+
+## Examples
+
+\`\`\`
+input: "Hello, World!"
+output: "hello, world!"
+\`\`\`
 `,
   },
 };
