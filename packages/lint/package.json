@@ -1,6 +1,6 @@
 {
   "name": "@effectorhq/lint",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Lint and validate SKILL.md files for the Effector ecosystem",
   "type": "module",
   "bin": {
