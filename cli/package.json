@@ -1,6 +1,6 @@
 {
   "name": "@effectorhq/cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A typed capability interface layer for agent skills — validate, audit, compile",
   "type": "module",
   "bin": {
@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@effectorhq/core": "^1.0.1",
-    "@effectorhq/audit": "^1.0.1",
-    "@effectorhq/compose": "^1.0.1",
+    "@effectorhq/audit": "^1.0.2",
+    "@effectorhq/compose": "^1.0.2",
     "@effectorhq/types": "^1.0.1",
     "@effectorhq/lint": "^0.2.1",
     "@effectorhq/serve": "^0.1.0"
