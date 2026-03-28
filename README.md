@@ -282,7 +282,7 @@ All commands support `--json` for machine-readable output.
 ### Layout
 
 ```
-effectorhq/
+effector/
 ├── package.json                    # npm workspaces, private: true
 ├── packages/
 │   ├── core/                       # @effectorhq/core — THE KERNEL
