@@ -1,0 +1,45 @@
+{
+  "name": "@effectorhq/lint",
+  "version": "0.2.0",
+  "description": "Lint and validate SKILL.md files for the Effector ecosystem",
+  "type": "module",
+  "bin": {
+    "skill-lint": "bin/skill-lint.js"
+  },
+  "scripts": {
+    "test": "node --test test/**/*.test.js",
+    "lint": "node ./bin/skill-lint.js",
+    "prepublishOnly": "npm test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ai-agent",
+    "lint",
+    "skill",
+    "effector",
+    "validation",
+    "skill.md"
+  ],
+  "author": "effectorHQ Contributors",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/effectorHQ/effector.git",
+    "directory": "packages/lint"
+  },
+  "homepage": "https://github.com/effectorHQ/effector",
+  "bugs": {
+    "url": "https://github.com/effectorHQ/effector/issues"
+  },
+  "dependencies": {
+    "@effectorhq/core": "^1.0.1"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE.md"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "name": "@effectorhq/core",
+  "version": "1.0.1",
+  "description": "The standard toolkit for typed AI agent tool interoperability \u2014 parse, validate, type-check, and compile agent tool definitions",
+  "type": "module",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./toml": {
+      "types": "./src/toml-parser.d.ts",
+      "default": "./src/toml-parser.js"
+    },
+    "./skill": {
+      "types": "./src/skill-parser.d.ts",
+      "default": "./src/skill-parser.js"
+    },
+    "./types": {
+      "types": "./src/type-checker.d.ts",
+      "default": "./src/type-checker.js"
+    },
+    "./schema": {
+      "types": "./src/schema-validator.d.ts",
+      "default": "./src/schema-validator.js"
+    },
+    "./compile": {
+      "types": "./src/compiler-targets.d.ts",
+      "default": "./src/compiler-targets.js"
+    },
+    "./errors": {
+      "types": "./src/errors.d.ts",
+      "default": "./src/errors.js"
+    },
+    "./guard": {
+      "types": "./src/guard.d.ts",
+      "default": "./src/guard.js"
+    }
+  },
+  "bin": {
+    "effector-core": "./src/cli.js"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "lint": "node --check src/*.js",
+    "sync-types": "node scripts/sync-types.js",
+    "prepublishOnly": "npm test && npm run lint"
+  },
+  "keywords": [
+    "ai-agent",
+    "tool-interoperability",
+    "mcp",
+    "openai",
+    "langchain",
+    "type-system",
+    "toml-parser",
+    "zero-dependency",
+    "compiler",
+    "effector",
+    "agent-tools",
+    "capability"
+  ],
+  "author": "effectorHQ Contributors",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/effectorHQ/effector.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/effectorHQ/effector",
+  "bugs": {
+    "url": "https://github.com/effectorHQ/effector/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/effectorHQ"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "src/",
+    "LICENSE.md",
+    "README.md"
+  ]
+}

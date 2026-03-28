@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm install
+
+      - name: Run all workspace tests
+        run: npm test
+
+      - name: Verify golden path
+        run: |
+          node cli/bin/effector.js init /tmp/ci-test-skill
+          node cli/bin/effector.js check /tmp/ci-test-skill --json
+          node cli/bin/effector.js compile /tmp/ci-test-skill -t mcp > /dev/null
+          node cli/bin/effector.js compile /tmp/ci-test-skill -t openai-agents > /dev/null
+          node cli/bin/effector.js compile /tmp/ci-test-skill -t json > /dev/null
+          node cli/bin/effector.js inspect /tmp/ci-test-skill --json > /dev/null
+        env:
+          NO_COLOR: "1"
+
+      - name: Verify all templates pass check
+        run: |
+          for tpl in skill workflow extension minimal; do
+            node cli/bin/effector.js init /tmp/ci-test-$tpl --template $tpl
+            node cli/bin/effector.js check /tmp/ci-test-$tpl --json | node -e "
+              const d = JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
+              if (!d.ok) { console.error('FAIL:', '$tpl', d.errors); process.exit(1); }
+            "
+          done
+        env:
+          NO_COLOR: "1"

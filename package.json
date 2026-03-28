@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "effectorhq",
+  "description": "A typed capability interface layer for agent skills",
+  "workspaces": [
+    "packages/*",
+    "cli"
+  ],
+  "scripts": {
+    "test": "npm test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "build": "npm run build --workspace=packages/types --if-present"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "Apache-2.0"
+}

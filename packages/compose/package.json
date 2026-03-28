@@ -1,0 +1,48 @@
+{
+  "name": "@effectorhq/compose",
+  "version": "1.0.1",
+  "description": "Type-checked composition engine for AI agent capabilities",
+  "main": "src/index.js",
+  "bin": {
+    "effector-compose": "bin/effector-compose.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "lint": "node --check src/*.js",
+    "prepublishOnly": "node --test tests/*.test.js"
+  },
+  "keywords": [
+    "effector",
+    "composition",
+    "type-check",
+    "pipeline",
+    "ai-agent",
+    "workflow",
+    "orchestration"
+  ],
+  "author": "effectorHQ Contributors",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/effectorHQ/effector.git",
+    "directory": "packages/compose"
+  },
+  "homepage": "https://github.com/effectorHQ/effector",
+  "bugs": {
+    "url": "https://github.com/effectorHQ/effector/issues"
+  },
+  "files": [
+    "src/",
+    "bin/",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@effectorhq/core": "^1.0.1",
+    "@effectorhq/types": "^1.0.1"
+  }
+}

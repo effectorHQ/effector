@@ -1,0 +1,9 @@
+[effector]
+name = "hello-skill"
+version = "0.1.0"
+description = "A simple text processor"
+type = "skill"
+
+[effector.interface]
+input = "String"
+output = "String"
