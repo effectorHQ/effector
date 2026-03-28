@@ -279,6 +279,33 @@ All commands support `--json` for machine-readable output.
    └─────────────────────┘
 ```
 
+### Layout
+
+```
+effectorhq/
+├── package.json                    # npm workspaces, private: true
+├── packages/
+│   ├── core/                       # @effectorhq/core — THE KERNEL
+│   ├── types/                      # internal — type catalog (types.json)
+│   ├── audit/                      # internal — security scanner
+│   ├── compose/                    # internal — composition engine
+│   ├── serve/                      # @effectorhq/serve — typed MCP server
+│   │   └── src/mcp/               # absorbed: openclaw-mcp source
+│   └── lint/                       # internal — absorbed from skill-lint
+├── cli/                            # @effectorhq/cli — THE PRODUCT
+│   ├── bin/effector.js
+│   └── src/
+│       ├── commands/               # P0: init, check, compile
+│       └── generators/             # absorbed from create-effector
+├── docs/                           # SSG site (not published)
+├── examples/
+│   ├── hello-skill/                # minimal zero-modification working skill
+│   └── mcp-reverse/                # reverse-compile demo
+├── benchmarks/                     # private, secondary priority
+├── spec/                           # formal specification (8 markdown files)
+└── .github/workflows/
+```
+
 ### Published Packages
 
 | Package | Purpose | Dependencies | Stability |
