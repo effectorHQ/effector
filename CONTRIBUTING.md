@@ -5,8 +5,8 @@ Thank you for considering contributing to effector.
 ## Getting Started
 
 ```bash
-git clone https://github.com/effectorHQ/effector.git
-cd effector
+git clone https://github.com/OpenClawHQ/effectorhq.git
+cd effectorhq
 npm install
 npm test
 ```

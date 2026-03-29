@@ -398,4 +398,4 @@ This project is licensed under the [Apache License, Version 2.0](LICENSE).
 
 ---
 
-<sub>Part of the <a href="https://github.com/effectorHQ">effectorHQ</a> studio. We build typed capabilities for AI that acts in the world.</sub>
+<sub>Part of the <a href="https://github.com/OpenClawHQ">effectorHQ</a> ecosystem. We build typed capabilities for AI that acts in the world.</sub>

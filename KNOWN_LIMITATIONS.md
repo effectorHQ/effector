@@ -8,7 +8,7 @@ This document is honest about what effector can and cannot do today.
 - `effector check` validates manifest, types, lint, and audit in one pass
 - `effector compile` emits valid MCP, OpenAI Agents, LangChain, and JSON IR
 - `effector inspect` shows parsed interface and permissions
-- 40-type catalog with structural subtyping and alias resolution
+- 42-type catalog with structural subtyping and alias resolution
 - stdout/stderr separation for scriptability
 - `--json` flag for CI integration
 
